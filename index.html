@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AILink - Next-Gen AI Hub & Playground</title>
+    <meta name="description" content="Explore, bookmark, and test top-tier AI models and services directly from a single unified portal. Enjoy a beautiful glassmorphic experience.">
+    <!-- Style link -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo-link" id="nav-logo">
+                <span class="logo-icon">▲</span>
+                <span class="logo-text">AI<span class="glow-text">Link</span></span>
+            </a>
+            
+            <div class="search-bar">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" id="search-input" class="search-input" placeholder="Search models, categories, tags...">
+            </div>
+
+            <div class="nav-actions">
+                <button id="bookmark-filter-toggle" class="btn-secondary" title="View Saved Stack">
+                    <i data-lucide="bookmark"></i>
+                    <span>My Stack</span>
+                </button>
+                <button id="add-tool-trigger" class="btn-primary">
+                    <i data-lucide="plus-circle"></i>
+                    <span>Submit AI</span>
+                </button>
+                <button id="settings-trigger" class="btn-secondary" title="Developer Settings" style="padding: 0.6rem 0.8rem;">
+                    <i data-lucide="settings" id="settings-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <span class="hero-tagline">Unified AI Playground</span>
+        <h1 class="hero-title">Interact with the <span>World's Best AIs</span></h1>
+        <p class="hero-desc">Discover, save, and test cutting-edge artificial intelligence systems directly inside a beautiful glassmorphic dashboard.</p>
+    </section>
+
+    <!-- Filter Categories Bar -->
+    <nav class="filters-container" aria-label="Category filter">
+        <button class="filter-btn active" data-category="all">
+            <i data-lucide="grid"></i> All AIs
+        </button>
+        <button class="filter-btn" data-category="chat">
+            <i data-lucide="message-square"></i> Chat & Text
+        </button>
+        <button class="filter-btn" data-category="image">
+            <i data-lucide="image"></i> Image Generators
+        </button>
+        <button class="filter-btn" data-category="code">
+            <i data-lucide="code-2"></i> Code Assistants
+        </button>
+        <button class="filter-btn" data-category="audio">
+            <i data-lucide="music"></i> Audio & Voice
+        </button>
+        <button class="filter-btn" data-category="video">
+            <i data-lucide="video"></i> Video & 3D
+        </button>
+    </nav>
+
+    <!-- Main Grid Dashboard -->
+    <main class="directory-section">
+        <div class="section-header">
+            <div class="section-title">AI Directory</div>
+            <div class="tools-count" id="tools-count">Showing 0 AIs</div>
+        </div>
+
+        <div class="tools-grid" id="tools-grid" role="region" aria-live="polite">
+            <!-- Dynamic Cards injected via app.js -->
+        </div>
+    </main>
+
+    <!-- Access Playground Modal -->
+    <div class="modal-overlay" id="playground-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title-area">
+                    <img id="modal-logo" src="" alt="AI Logo" class="modal-logo" onerror="this.style.display='none'">
+                    <div class="modal-title-text">
+                        <h2 id="modal-title">AI Model</h2>
+                        <p id="modal-provider">Provider</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="close-playground-modal" aria-label="Close modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <!-- Sidebar info -->
+                <div class="details-sidebar">
+                    <div class="sidebar-section">
+                        <h4>About</h4>
+                        <p class="sidebar-desc" id="modal-description">Detailed description goes here...</p>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h4>Specifications</h4>
+                        <div class="sidebar-meta-item">
+                            <span>Pricing Model</span>
+                            <span id="modal-pricing">-</span>
+                        </div>
+                        <div class="sidebar-meta-item">
+                            <span>Primary Use Case</span>
+                            <span id="modal-category">-</span>
+                        </div>
+                        <div class="sidebar-meta-item">
+                            <span>Creator / Studio</span>
+                            <span id="modal-developer">-</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" target="_blank" id="modal-launch-link" class="btn-primary btn-sidebar-launch">
+                        <i data-lucide="external-link"></i>
+                        <span>Visit Website</span>
+                    </a>
+                </div>
+
+                <!-- Live Interface / Playground Simulator -->
+                <div class="playground-area">
+                    <div class="playground-header">
+                        <span class="playground-title">
+                            <span class="playground-badge"></span>
+                            Interactive Console
+                        </span>
+                        <span style="font-size:0.75rem; color:var(--text-muted);" id="playground-status">Simulated Sandbox</span>
+                    </div>
+
+                    <!-- Dynamic Playground Layouts -->
+                    <div id="playground-container" style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
+                        <!-- Content loaded dynamically based on AI type (chat, image, etc) -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit AI Modal Form -->
+    <div class="modal-overlay" id="add-tool-modal" role="dialog" aria-modal="true" aria-labelledby="add-form-title">
+        <div class="modal-container" style="max-width: 550px;">
+            <div class="modal-header">
+                <div class="modal-title-area">
+                    <div class="modal-title-text">
+                        <h2 id="add-form-title">Submit New AI Tool</h2>
+                        <p>Contribute to the index</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="close-add-modal" aria-label="Close modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <form id="add-tool-form">
+                <div class="modal-content" style="grid-template-columns: 1fr; padding: 1.5rem 2rem;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="tool-name">AI Name *</label>
+                            <input type="text" id="tool-name" class="form-control" placeholder="e.g. Claude 3.5 Sonnet" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="tool-provider">Provider *</label>
+                            <input type="text" id="tool-provider" class="form-control" placeholder="e.g. Anthropic" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="tool-category">Category *</label>
+                            <select id="tool-category" class="form-control" required>
+                                <option value="chat">Chat & Text</option>
+                                <option value="image">Image Generators</option>
+                                <option value="code">Code Assistants</option>
+                                <option value="audio">Audio & Voice</option>
+                                <option value="video">Video & 3D</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="tool-pricing">Pricing *</label>
+                            <select id="tool-pricing" class="form-control" required>
+                                <option value="Free">Free</option>
+                                <option value="Freemium">Freemium</option>
+                                <option value="Paid">Paid</option>
+                                <option value="Open Source">Open Source</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="tool-desc">Short Description *</label>
+                        <textarea id="tool-desc" class="form-control" placeholder="Describe what this AI is best at (max 200 chars)..." maxlength="200" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="tool-link">Website Link *</label>
+                            <input type="url" id="tool-link" class="form-control" placeholder="https://example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="tool-tags">Tags (comma separated)</label>
+                            <input type="text" id="tool-tags" class="form-control" placeholder="LLM, research, writing">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancel-add-modal">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Tool</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Developer Settings Modal -->
+    <div class="modal-overlay" id="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+        <div class="modal-container" style="max-width: 500px;">
+            <div class="modal-header">
+                <div class="modal-title-area">
+                    <div class="modal-title-text">
+                        <h2 id="settings-title">Developer Settings</h2>
+                        <p>Configure Live API Connections</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="close-settings-modal" aria-label="Close modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <form id="settings-form">
+                <div class="modal-content" style="grid-template-columns: 1fr; padding: 1.5rem 2rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="settings-mode">Playground Mode</label>
+                        <select id="settings-mode" class="form-control">
+                            <option value="simulated">Smart Simulated Sandbox</option>
+                            <option value="live">Live AI (Gemini API)</option>
+                        </select>
+                        <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">
+                            Live AI mode makes API calls to Google's servers directly from your browser.
+                        </span>
+                    </div>
+
+                    <div class="form-group" id="api-key-group">
+                        <label class="form-label" for="gemini-api-key">Gemini API Key</label>
+                        <input type="password" id="gemini-api-key" class="form-control" placeholder="AIzaSy...">
+                        <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">
+                            Get a free key from <a href="https://aistudio.google.com/" target="_blank" style="color: var(--cyan); text-decoration: none;">Google AI Studio</a>. Kept locally in browser storage.
+                        </span>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 0.5rem; border-top: 1px solid var(--border-glass); padding-top: 1rem;">
+                        <label class="form-label" style="color: var(--pink);">Reset Local Database</label>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+                            Erase all custom tool configurations, bookmarks, and saved API keys from browser memory.
+                        </p>
+                        <button type="button" class="btn-secondary" id="btn-reset-app" style="border-color: var(--pink); color: var(--pink); width: fit-content; padding: 0.4rem 1rem;">
+                            <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> Clear All Data
+                        </button>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancel-settings-modal">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Settings</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <p>&copy; 2026 AILink. Crafted with premium glassmorphism for testing & indexing AIs.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">About Portal</a>
+                <a href="#" class="footer-link">Developer Guidelines</a>
+                <a href="#" class="footer-link">API Access</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- App Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
