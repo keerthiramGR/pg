@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Web Page</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+}
+
+.container{
+    width:420px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:40px;
+    text-align:center;
+    color:white;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+h1{
+    font-size:36px;
+    margin-bottom:15px;
+}
+
+p{
+    margin-bottom:30px;
+    line-height:1.6;
+}
+
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    margin:8px;
+    font-size:16px;
+    transition:.3s;
+}
+
+.btn1{
+    background:#fff;
+    color:#4facfe;
+}
+
+.btn2{
+    background:transparent;
+    border:2px solid white;
+    color:white;
+}
+
+button:hover{
+    transform:translateY(-4px);
+}
+
+.footer{
+    margin-top:30px;
+    font-size:14px;
+    opacity:.8;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+    <h1>🚀 Welcome!</h1>
+
+    <p>
+        This is a randomly designed landing page built using HTML and CSS.
+        It demonstrates a modern UI with glassmorphism and gradient styling.
+    </p>
+
+    <button class="btn1" onclick="showMessage()">Explore</button>
+    <button class="btn2">Learn More</button>
+
+    <div class="footer">
+        Made with ❤️ using HTML, CSS & JavaScript
+    </div>
+</div>
+
+<script>
+function showMessage(){
+    alert("Hello! Thanks for visiting this random webpage.");
+}
+</script>
+
+</body>
+</html>
